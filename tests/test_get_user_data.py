@@ -1,8 +1,8 @@
 import httpx
 from jsonschema import validate
 
-from core.contracts import USER_DATA_SCHEMA
-from core.contracts import LIST_RESOURCE_SCHEMA
+from schemas.USER_DATA_SCHEMA import USER_DATA_SCHEMA
+from schemas.LIST_RESOURCE_SCHEMA import LIST_RESOURCE_SCHEMA
 
 BASE_URL = "https://reqres.in"
 LIST_USERS = "/api/users?page=2"
