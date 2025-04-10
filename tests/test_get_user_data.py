@@ -1,3 +1,5 @@
+from http.client import responses
+
 import httpx
 from jsonschema import validate
 from schemas.USER_DATA_SCHEMA import USER_DATA_SCHEMA
@@ -9,6 +11,7 @@ SINGLE_USER = "/api/users/2"
 USER_NOT_FOUND = "/api/users/23"
 EMAIL_ENDS = "@reqres.in"
 AVATAR_ENDS = "-image.jpg"
+DELAYED_REQUEST = "/api/users?delay=3"
 
 
 @allure.suite("Проверка запросов данных пользователей")
@@ -54,3 +57,11 @@ class TestUserData:
 
         with allure.step("Проверка статуса ответа"):
             assert response.status_code == 404
+
+    @allure.title("Проверка получения списка отложенных пользователей")
+    def test_delayed_user_list(self):
+        with allure.step(f"Делаем запрос по адресу: {BASE_URL + DELAYED_REQUEST}"):
+            response = httpx.get(BASE_URL + DELAYED_REQUEST, timeout=4)
+
+        with allure.step("Проверка статуса ответа"):
+            assert response.status_code == 200
